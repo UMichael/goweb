@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	login "./login"
+	login "./Handlers"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -13,7 +13,8 @@ func main() {
 	router := httprouter.New()
 	//router.POST("/signup", person.SignUp)
 	router.HandleMethodNotAllowed = false
-	router.GET("/", index)
+	//default page
+	//router.GET("/", index)
 	router.PATCH("/confirm/:token", person.Confirm)
 	router.POST("/signup", person.SignUp)
 	http.HandleFunc("/signin", person.Login)

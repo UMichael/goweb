@@ -3,7 +3,6 @@ package Handlers
 import (
 	"net/http"
 
-	login "../login"
 	"github.com/gorilla/websocket"
 )
 
@@ -14,7 +13,7 @@ var upgrader = websocket.Upgrader{
 }
 
 type Message struct {
-	User    login.User
+	User    User
 	Message string `json:"message"`
 }
 
@@ -48,6 +47,7 @@ func SendMessages() {
 				delete(clients, client)
 			}
 		}
-		login.Db.QueryRow("insert into messages(nickname, content) values($1, $2)", msg.User.Nickname, msg.Message)
+		//would send messages to database for users who have created and are not online
+		Db.QueryRow("insert into messages(nickname, content) values($1, $2)", msg.User.Nickname, msg.Message)
 	}
 }
