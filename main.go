@@ -11,7 +11,7 @@ func main() {
 	var person login.User
 	//httprouter.CleanPath("/")
 	router := httprouter.New()
-	router.ServeFiles("/*filepath", http.Dir("./template/"))
+	//router.ServeFiles("/*filepath", http.Dir("./template/"))
 	//router.HandleMethodNotAllowed = false
 	//default page
 	//router.GET("/", index)
