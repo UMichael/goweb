@@ -1,23 +1,116 @@
+<!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
         <title>DSC UNILAG Signup</title>
     </head>
-    <form action="http://127.0.0.1:8080/login" method="POST" >
-        <body>
-            Username:   <input type="text" name="user" placeholder="Username"/><br>
-            Password:   <input type="password" name="pass" placeholder="Password"/><br>
-            Age:        <input type="text" name="age" placeholder="Age"/><br>
-            Department: <input type="text" name="dept" placeholder="Department" /><br>
-            Email:      <input type="text" name="Email" placeholder="Email"/><br>
-            <button id="Submit">Submit</button>
-        </body>
-    </form>
-    <form action="http://127.0.0.1:8080/reset" method="POST">
-        <body>
-            Reset Password: <input type="text" name="Email" placeholder="Email"/><br>
-            <button id="Submit">Submit</button>
-        </body>
-    </form>
-    
+
+    <body>
+        <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top move">
+            <div class="navbar-header">
+                <a class="navbar-brand"	href="">DSC UNILAG</a>
+                <button	type="button"	class="navbar-toggle	collapsed"	data-toggle="collapse" data-target="#nav-menu"	aria-expanded="false">
+                    <span class="sr-only">Toggle	navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="nav-menu" class="collapse navbar-collapse	navbar-right">
+                <ul	class="nav	navbar-nav">
+                    <li><a href=" ">Sign Up</a></li>
+                    <li><a href=" ">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <section id="First-Heading">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-7">
+                    <h1><em><marquee> Sign Up To DSC UNILAG</marquee> </em></h1>
+                </div>
+            </div>
+        </section>
+
+        <section id="input-side"> 
+                <div class="container col-md-12">
+                        <form id="form-id" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="Name">Username</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="Name" class="form-control" placeholder="Username"/>
+                                    <hr/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="Email">Email</label>
+                                <div class="col-md-6">
+                                    <input id="Email" type="email" class="form-control" placeholder="Email">
+                                    <hr/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="Department">Department</label>
+                                <div class="col-md-6">
+                                    <input id="Deparment" type="text" class="form-control" name="Departmet" placeholder="Department">
+                                    <hr/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label" for="Age">Age</label>
+                                    <div class="col-md-6">
+                                        <input id="Age" type="text" class="form-control" name="Age" placeholder="Age">
+                                        <hr/>
+                                    </div>
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label" for="Password">Password</label>
+                                    <div class="col-md-6">
+                                        <input id="Password" type="password" class="form-control" name="Password" placeholder="Password">
+                                        <hr/>
+                                    </div>
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                    <label class="col-md-2 control-label" for="ConfirmPassword">Confirm Password</label>
+                                    <div class="col-md-6">
+                                        <input id="Confirmpassword" type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
+                                        <span id="verifynote" class="warn hidden"> Password Don't Match </span>
+                                        <hr/>
+                                    </div>
+                            </div>
+                            <hr/>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" id="Register" class="btn btn-primary">Sign Up</button>
+                                </div>
+                            </div>
+                        </form>                
+                </div>
+        </section>
+    </div>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/site.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#Confirmpassword').keyup(function(){
+                    if( $(this).val() == $('#Password').val()) {
+                        $('#verifynote').addClass('hidden');
+                    } else{
+                        $('#verifynote').removeClass('hidden');
+                    }
+                });
+            });
+            </script>
+    </body>   
 </html>
