@@ -1,4 +1,4 @@
-package Handlers
+package handlers
 
 import (
 	"fmt"
@@ -39,8 +39,11 @@ func init() {
 		panic(err)
 	}
 }
-func (user *User) Login(w http.ResponseWriter, r *http.Request) { //check how safe using pointer is to this
-	//t, err := template.ParseFiles("./html/login.htm")
+
+//Login ...
+func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	//check how safe using pointer is to this
+
 	r.ParseForm()
 	user.Email = r.FormValue("email")
 	user.Password = r.FormValue("pass")
@@ -100,9 +103,9 @@ func (user *User) Update() error {
 }
 func (user *User) Confirm(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	token := ps.ByName("token")
-	err := Db.QueryRow("select email, nickname, from users where token = $1", token).Scan(&user.Email, user.Nickname)
+	err := Db.QueryRow("select email, nickname from users where token = $1", token).Scan(&user.Email, &user.Nickname)
 	if err != nil {
-		fmt.Fprintln(w, "this is a wrong token")
+		fmt.Fprintln(w, "this is a wrong token", err)
 		return
 	}
 	_, err = Db.Exec("update users set confirmed = $1 where token = $2", true, token)
