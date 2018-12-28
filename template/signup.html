@@ -9,8 +9,8 @@
     </head>
 
     <body>
-        <div class="container">
-        <nav class="navbar navbar-inverse navbar-fixed-top move">
+    
+        <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-header">
                 <a class="navbar-brand"	href="">DSC UNILAG</a>
                 <button	type="button"	class="navbar-toggle	collapsed"	data-toggle="collapse" data-target="#nav-menu"	aria-expanded="false">
@@ -28,75 +28,89 @@
             </div>
         </nav>
         
-        <section id="First-Heading">
-            <div class="row">
-                <div class="col-md-offset-2 col-md-7">
-                    <h1><em><marquee> Sign Up To DSC UNILAG</marquee> </em></h1>
-                </div>
+        <div class="row container-fluid move">
+            <div class="col-md-offset-1 col-md-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1><em><b>WELCOME TO DSC UNILAG</b> </em></h1>
+                        </div>
+                    </div>
+                    <div class="row" id="input-side">
+                        <div class="col-md-12">
+                            <img class="img-responsive" src="../template/assets/img/CDA8AhOo_400x400.jpg"/>
+                        </div>
+                    </div>
             </div>
-        </section>
 
-        <section id="input-side"> 
-                <div class="container col-md-12">
-                        <form id="form-id" class="form-horizontal">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="Name">Username</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="Name" class="form-control" placeholder="Username"/>
-                                    <hr/>
-                                </div>
+            <div class="col-md-offset-1 col-md-5" id="First-Heading">
+               
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1><em>New User Sign Up </em></h1>
+                        </div>
+                    </div>
+ 
+                <section id="input-side"> 
+                    <div class="row">
+                            <div class="col-md-12">
+                                    <form id="form-id" class="form-horizontal">
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <input type="text" id="Name" class="form-control" placeholder="Username" required/>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <input id="Email" type="email" class="form-control" placeholder="Email" required>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <input id="Deparment" type="text" class="form-control" name="Departmet" placeholder="Department" required>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <input id="Age" type="text" class="form-control" name="Age" placeholder="Age" required>
+                                                    <br/>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <input id="Password" type="password" class="form-control" name="Password" placeholder="Password" required>
+                                                    <br/>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <input id="Confirmpassword" type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password" required>
+                                                    <span id="verifynote" class="warn hidden"> Password Don't Match </span>
+                                                    <br/>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <button type="submit" id="Register" class="btn btn-lg btn-primary">Sign Up</button>
+                                            </div>
+                                        </div>
+                                    </form>                
                             </div>
-                            
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="Email">Email</label>
-                                <div class="col-md-6">
-                                    <input id="Email" type="email" class="form-control" placeholder="Email">
-                                    <hr/>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="col-md-2 control-label" for="Department">Department</label>
-                                <div class="col-md-6">
-                                    <input id="Deparment" type="text" class="form-control" name="Departmet" placeholder="Department">
-                                    <hr/>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                    <label class="col-md-2 control-label" for="Age">Age</label>
-                                    <div class="col-md-6">
-                                        <input id="Age" type="text" class="form-control" name="Age" placeholder="Age">
-                                        <hr/>
-                                    </div>
-                            </div>
-                            <hr/>
-                            <div class="form-group">
-                                    <label class="col-md-2 control-label" for="Password">Password</label>
-                                    <div class="col-md-6">
-                                        <input id="Password" type="password" class="form-control" name="Password" placeholder="Password">
-                                        <hr/>
-                                    </div>
-                            </div>
-                            <hr/>
-                            <div class="form-group">
-                                    <label class="col-md-2 control-label" for="ConfirmPassword">Confirm Password</label>
-                                    <div class="col-md-6">
-                                        <input id="Confirmpassword" type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
-                                        <span id="verifynote" class="warn hidden"> Password Don't Match </span>
-                                        <hr/>
-                                    </div>
-                            </div>
-                            <hr/>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <button type="submit" id="Register" class="btn btn-primary">Sign Up</button>
-                                </div>
-                            </div>
-                        </form>                
-                </div>
-        </section>
-    </div>
+                        </div>
+                </section>
+            </div>
+        </div>
+
+        
+    
 
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/site.js"></script>
