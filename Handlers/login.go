@@ -61,7 +61,6 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 		fmt.Fprintln(w, "error this has not been registered") //fix something explicit
 		return
 	}
-	fmt.Println("working")
 	if err := bcrypt.CompareHashAndPassword([]byte(hashpass), []byte(user.Password)); err != nil {
 		//Tell the user that the password is invalid
 		fmt.Fprintln(w, "error this has a wrong pass") //fix something explicit
@@ -86,7 +85,6 @@ func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httproute
 	user.Password = r.FormValue("pass")
 	user.Age, _ = strconv.Atoi(r.FormValue("age"))
 	user.Department = r.FormValue("dept")
-	fmt.Println(user)
 	hashpass, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		fmt.Println(err)
@@ -120,11 +118,11 @@ func (user *User) ResetPassword(w http.ResponseWriter, r *http.Request) error {
 }
 
 //Update ...
-func (user *User) Update() error {
-	//stop
-	Db.QueryRow("insert into user ()")
-	return nil
-}
+// func (user *User) Update() error {
+// 	//stop
+// 	Db.QueryRow("insert into user ()")
+// 	return nil
+// }
 
 //ConfirmToken ...
 func (user *User) ConfirmToken(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
