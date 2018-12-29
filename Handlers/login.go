@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"strconv"
 	"time"
@@ -15,7 +16,9 @@ import (
 
 var Db *sqlx.DB
 var err error
+var templates = template.Must(template.ParseGlob("template/*.html"))
 
+//User ...
 type User struct {
 	Email      string `json:"email"`
 	Nickname   string `db:"user" json:"nickname"`
@@ -30,6 +33,7 @@ type User struct {
 }
 
 func init() {
+
 	Db, err = sqlx.Open("postgres", "user=DSC password=DSC sslmode=disable dbname=database port=5434")
 	if err != nil {
 		panic(err)
@@ -39,11 +43,13 @@ func init() {
 		panic(err)
 	}
 }
+func executetemplate(text string, w http.ResponseWriter) {
+	templates = templates.Lookup(text)
+	templates.Execute(w, nil)
+}
 
-//Login ...
-func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	//check how safe using pointer is to this
-
+//LoginPost ...
+func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	user.Email = r.FormValue("email")
 	user.Password = r.FormValue("pass")
@@ -51,10 +57,12 @@ func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	if err = Db.QueryRow("select password from users where email = $1", user.Email).Scan(&hashpass); err != nil {
 		//Tell the user there was no email like that found
 		//do something
+		fmt.Fprintln(w, "error this has not been registered") //fix something explicit
 		return
 	}
 	if err := bcrypt.CompareHashAndPassword([]byte(hashpass), []byte(user.Password)); err != nil {
 		//Tell the user that the password is invalid
+		fmt.Fprintln(w, "error this has a wrong pass") //fix something explicit
 		return
 	}
 	//User login success
@@ -63,9 +71,14 @@ func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 	fmt.Println("success logging in")
 }
 
-func (user *User) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	//implement email authentication
-	//t,err:=template.ParseFiles("./html/signup.html")
+//Login ...
+func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	executetemplate("login.html", w)
+}
+
+//SignUpPost ...
+func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Println("helod")
 	r.ParseForm()
 	user.Nickname = r.FormValue("user")
 	user.Email = r.FormValue("Email")
@@ -87,8 +100,16 @@ func (user *User) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		//if it cant register
 		fmt.Println(err)
 	}
-	fmt.Println(user)
+	//after success take it to successful page
+	fmt.Fprintln(w, "success registering")
 }
+
+//SignUp ...
+func (user *User) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	executetemplate("signup.html", w)
+}
+
+//ResetPassword ...
 func (user *User) ResetPassword(w http.ResponseWriter, r *http.Request) error {
 	//get token and send to user
 	user.Email = r.FormValue("email")
@@ -96,12 +117,16 @@ func (user *User) ResetPassword(w http.ResponseWriter, r *http.Request) error {
 
 	return nil
 }
+
+//Update ...
 func (user *User) Update() error {
 	//stop
 	Db.QueryRow("insert into user ()")
 	return nil
 }
-func (user *User) Confirm(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+//ConfirmToken ...
+func (user *User) ConfirmToken(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	token := ps.ByName("token")
 	err := Db.QueryRow("select email, nickname from users where token = $1", token).Scan(&user.Email, &user.Nickname)
 	if err != nil {
@@ -114,4 +139,7 @@ func (user *User) Confirm(w http.ResponseWriter, r *http.Request, ps httprouter.
 	}
 }
 
-//Test
+//Index ...
+func (user *User) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	executetemplate("index.html", w)
+}
