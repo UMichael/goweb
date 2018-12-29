@@ -53,6 +53,7 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 	r.ParseForm()
 	user.Email = r.FormValue("email")
 	user.Password = r.FormValue("pass")
+	fmt.Println(user)
 	var hashpass string
 	if err = Db.QueryRow("select password from users where email = $1", user.Email).Scan(&hashpass); err != nil {
 		//Tell the user there was no email like that found
@@ -60,6 +61,7 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 		fmt.Fprintln(w, "error this has not been registered") //fix something explicit
 		return
 	}
+	fmt.Println("working")
 	if err := bcrypt.CompareHashAndPassword([]byte(hashpass), []byte(user.Password)); err != nil {
 		//Tell the user that the password is invalid
 		fmt.Fprintln(w, "error this has a wrong pass") //fix something explicit
@@ -68,7 +70,7 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 	//User login success
 	Db.QueryRow("select nickname, age, dept, super, mod, token, created_at from users where email = $1", user.Email).Scan(&user.Nickname, &user.Age, &user.Department, &user.Super, &user.Moderator, &user.Token, &user.CreatedAt)
 	//Find a way to use this
-	fmt.Println("success logging in")
+	fmt.Fprintln(w, "success logging in")
 }
 
 //Login ...

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	login "./Handlers"
@@ -19,5 +20,5 @@ func main() {
 	router.GET("/login", person.Login)
 	router.POST("/login/", person.LoginPost)
 	router.GET("/", person.Index)
-	http.ListenAndServe(":8080", router)
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
