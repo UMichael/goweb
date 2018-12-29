@@ -28,8 +28,6 @@ func HandleConn(w http.ResponseWriter, r *http.Request) {
 		var msg Message
 		err := ws.ReadJSON(&msg)
 		if err != nil {
-			//Assume client is out
-			//i'll try and create a log
 			delete(clients, ws)
 			break
 		}

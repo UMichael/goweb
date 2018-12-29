@@ -78,7 +78,6 @@ func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 
 //SignUpPost ...
 func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Println("helod")
 	r.ParseForm()
 	user.Nickname = r.FormValue("user")
 	user.Email = r.FormValue("Email")
