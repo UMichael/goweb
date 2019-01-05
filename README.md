@@ -14,4 +14,4 @@ Run go build to build files and run the file make sure postgre is up
 
 Open browser and listen on port 8080
 
-For now it has the ability to register and users and login, to implement tokens, chatroom and also a customized furom on webpage exit
+For now it has the ability to register and users and login, to implement tokens, chatroom and also a customized forum using websockets
