@@ -16,7 +16,6 @@ import (
 
 var Db *sqlx.DB
 var err error
-var templates = template.Must(template.ParseGlob("template/*.html"))
 
 //User ...
 type User struct {
@@ -43,9 +42,9 @@ func init() {
 		panic(err)
 	}
 }
-func executetemplate(text string, w http.ResponseWriter) {
-	templates = templates.Lookup(text)
-	templates.Execute(w, nil)
+func executetemplate(file string, w http.ResponseWriter) {
+	templates := template.Must(template.ParseFiles("template/" + file))
+	err = templates.Execute(w, nil)
 }
 
 //LoginPost ...
@@ -74,7 +73,9 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 
 //Login ...
 func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	w.Header().Add("Content-Type", "text/html")
 	executetemplate("login.html", w)
+
 }
 
 //SignUpPost ...
@@ -105,6 +106,7 @@ func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httproute
 
 //SignUp ...
 func (user *User) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	w.Header().Add("Content-Type", "text/html")
 	executetemplate("signup.html", w)
 }
 
@@ -140,5 +142,7 @@ func (user *User) ConfirmToken(w http.ResponseWriter, r *http.Request, ps httpro
 
 //Index ...
 func (user *User) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+
 	executetemplate("index.html", w)
+	w.Header().Set("Content-Type", "text/html")
 }

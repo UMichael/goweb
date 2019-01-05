@@ -1,12 +1,36 @@
+<!DOCTYPE html>
 <html>
     <head>
+            <style >
+                body{
+                    background-image: url("../template/png.jpg");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
+                }
+                h1{
+                    
+                    font: lighter;
+                    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+                    border-style:groove;
+                    border-width: 5px;
+        
+                }
+                form{
+                    text-align:left;
+                    
+                }
+            </style>
         <title>Welcome to DSC UNILAG</title>
     </head>
-    <form action="/login/" method="POST" >
-        <body>
-            Email:   <input type="text" name="email" placeholder="Username"/><br>
-            Password: <input type="password" name="pass" placeholder="Password"/><br>
-            <input type="submit" value="submit"/>
-        </body>
-    </form>
+    <h1>DSC Login</h1>
+    
+        <form action="/login/" method="POST" >
+            <body>
+                Email:   <input type="text" name="email" placeholder="Username"/><br>
+                Password: <input type="password" name="pass" placeholder="Password"/><br>
+                <input type="submit" value="submit"/>
+            </body>
+        </form>
+    
 </html>

@@ -1,19 +1,51 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>DSC UNILAG Signup</title>
+        <style>
+            body{
+                background-image: url("../template/png.jpg");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+            }
+            h1{
+                text-align: center;
+                font: lighter;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                border-style: solid;
+                border-width: 5px;
+    
+            }
+            text{
+                text-align: center;
+                margin: 40px;
+                line-height: 150%;
+            }
+        </style>
     </head>
     <form action="/signup/" method="POST" >
         <body>
-            Username:   <input type="text" name="user" placeholder="Username"/><br>
-            Password:   <input type="password" name="pass" placeholder="Password"/><br>
-            Age:        <input type="text" name="age" placeholder="Age"/><br>
-            Department: <input type="text" name="dept" placeholder="Department" /><br>
-            Email:      <input type="text" name="Email" placeholder="Email"/><br>
+            <h1>Welcome To DSC UNILAG</h1>
+            Username:   <input type="text" name="user" placeholder="Username"/><br><br>
+            Password:   <input type="password" name="pass" placeholder="Password"/><br><br>
+            Age:        <input type="text" name="age" placeholder="Age"/><br><br>
+            Department: <input type="text" name="dept" placeholder="Department" /><br><br>
+            Email:      <input type="text" name="Email" placeholder="Email"/><br><br>
+             <select name="Gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</output>
+                <option value="Won't Tell">Won't Tell</option>
+            </select>
+            <br><br>
             <button id="Submit">Submit</button>
+            <br/>
+            <hr>
         </body>
     </form>
     <form action="8080/reset" method="GET">
         <body>
+            <br/>
             Reset Password: <input type="text" name="Email" placeholder="Email"/><br>
             <button id="Submit">Submit</button>
         </body>
