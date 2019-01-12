@@ -1,0 +1,27 @@
+
+
+#nav-menu {
+    margin-right: 1rem;
+}
+
+
+#input-side{
+    margin-top: 4rem;
+    
+}
+
+.navbar-inverse {
+    background-color: #2a64b8;
+    border-color: #e7e7e7;
+}
+
+.move{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10rem;
+    color: black;
+}
+
+.btn-primary{
+    border-radius: 0px;
+}

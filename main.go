@@ -21,6 +21,6 @@ func main() {
 	router.GET("/login", person.Login)
 	router.POST("/login/", person.LoginPost)
 	router.GET("/", person.Index)
-	router.ServeFiles("/images/*filepath", http.Dir("./template/images"))
+	router.ServeFiles("/assets/*filepath", http.Dir("./template/assets"))
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
