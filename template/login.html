@@ -1,12 +1,12 @@
 
 <html>
     <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             <style >
                 body{
-                    background-image: url("../template/images/png.jpg");
+                    background-image: url("/images/png.jpg");
                     background-repeat: no-repeat;
                     background-position: center;
-                    background-size: cover;
                 }
                 h1{
                     
@@ -25,7 +25,7 @@
     </head>
     <h1>DSC Login</h1>
     
-        <form action="/login/" method="POST" >
+        <form action="/login/" method="POST" enctype="multipart/form-data" >
             <body>
                 Email:   <input type="text" name="email" placeholder="Username"/><br>
                 Password: <input type="password" name="pass" placeholder="Password"/><br>

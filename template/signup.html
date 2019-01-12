@@ -4,10 +4,9 @@
         <title>DSC UNILAG Signup</title>
         <style>
             body{
-                background-image: url("../template/images/png.jpg");
+                background-image: url("/images/png.jpg");
                 background-repeat: no-repeat;
                 background-position: center;
-                background-size: cover;
             }
             h1{
                 text-align: center;
@@ -24,7 +23,7 @@
             }
         </style>
     </head>
-    <form action="/signup/" method="POST" >
+    <form action="/signup/" method="POST" enctype="multipart/form-data">
         <body>
             <h1>Welcome To DSC UNILAG</h1>
             Username:   <input type="text" name="user" placeholder="Username"/><br><br>
