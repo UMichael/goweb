@@ -104,7 +104,8 @@ func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httproute
 		`
 	if _, err = Db.Exec(statement, user.Email, hashpass, user.Department, user.Super, user.Moderator, user.Age, user.Confirmed, user.Nickname); err != nil {
 		//if it cant register
-		fmt.Println(err)
+		fmt.Fprintln(w, "This email has been registered already please use another")
+		return
 	}
 	//after success take it to successful page
 	fmt.Fprintln(w, "success registering")
