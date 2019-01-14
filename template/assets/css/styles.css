@@ -1,3 +1,6 @@
+body{
+    background-color: rgba(121, 70, 76, 0.03)
+}
 
 
 #nav-menu {
@@ -10,18 +13,50 @@
     
 }
 
-.navbar-inverse {
-    background-color: #2a64b8;
-    border-color: #e7e7e7;
-}
 
 .move{
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10rem;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
     color: black;
 }
 
 .btn-primary{
     border-radius: 0px;
+}
+
+
+jumbotron {
+    background-color: rgba(121, 70, 76, 0.003);
+}
+
+.logSection{
+    margin-top: 20%;
+    margin-left: 30%;
+    padding: 2%;
+    background-color: #222;
+    color: white;
+
+}
+
+
+@media(max-width:70em) {
+    .logSection{
+        margin-top: 20%;
+        margin-left: -10%;
+        margin-right: 10%;
+        padding: 2%;
+    
+    }
+}
+
+@media (max-width: 768px)  { 
+    .logSection{
+        margin-top: 30%;
+        margin-left: -10%;
+        margin-right: 10%;
+        padding: 2%;
+    
+    }
 }

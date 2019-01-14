@@ -1,14 +1,91 @@
+<!DOCTYPE html>
+
 <html>
     <head>
-        <title>Welcome to DSC UNILAG</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <title>DSC UNILAG Signup</title>
     </head>
-    <form action="/sucess" method="GET" >
-        <body>
-            Email:   <input type="text" name="email" placeholder="Username"/><br>
-            Password: <input type="password" name="pass" placeholder="Password"/><br>
-            <input type="submit" value="submit"/>
 
-            <b>Hello {{.}} and Welcome to DSC UNILAG</b>
-        </body>
-    </form>
+    <body >
+    
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="navbar-header">
+                        <a class="navbar-brand"	href="/">DSC UNILAG</a>
+                        <button	type="button"	class="navbar-toggle	collapsed"	data-toggle="collapse" data-target="#nav-menu"	aria-expanded="false">
+                            <span class="sr-only">Toggle	navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div id="nav-menu" class="collapse navbar-collapse	navbar-right">
+                        <ul	class="nav	navbar-nav">
+                            <li><a href=" ">Sign Up</a></li>
+                            <li><a href=" ">Login</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-2 col-xs-10 col-xs-offset-2 col-sm-10 col-sm-offset-2">
+                            <div class="jumbotron logSection">
+                                    <h2><em>User Login </em></h2>
+                                    <br/>
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                    <form id="form-id" class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <input type="text" id="Name" class="form-control" placeholder="Username" required/>
+                                                                <br/>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <input type="Password" id="Password" class="form-control" placeholder="Password" required/>
+                                                                <br/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <button type="submit" id="Login" class="btn btn-lg btn-primary">Login</button>
+                                                                </div>
+                                                        </div>
+                                                            <h4>
+                                                                <a style="color:white;">Forgot your password?</a>
+                                                            </h4>
+                                                            <h4>
+                                                                <a style="color:white;">Register as a new user</a>
+                                                            </h4>
+                                                        
+                                                    </form>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+
+                <footer>
+                    <div class=row"">
+                        <div class="container">
+                            <div class="col-md-12">
+                                <hr/>
+                                © DSC_Unilag - 2019
+                                
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+
+
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/site.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.js"></script>
+    </body>
 </html>
