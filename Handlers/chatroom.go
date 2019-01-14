@@ -46,6 +46,7 @@ func SendMessages() {
 			}
 		}
 		//would send messages to database for users who have created and are not online
-		Db.QueryRow("insert into messages(nickname, content) values($1, $2)", msg.User.Nickname, msg.Message)
+		//Havent implement nickname in struct
+		//Db.QueryRow("insert into messages(nickname, content) values($1, $2)", msg.User.Nickname, msg.Message)
 	}
 }

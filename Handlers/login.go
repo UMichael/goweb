@@ -20,16 +20,17 @@ var templates = template.Must(template.ParseGlob("template/*.html"))
 
 //User ...
 type User struct {
-	Email      string `json:"email"`
-	Nickname   string `db:"user" json:"nickname"`
-	Password   string
-	Age        int    `json:"age"`
-	Department string `db:"dept" json:"department"`
-	Super      bool   `json:"super"`
-	Moderator  bool   `db:"mod" json:"mod"`
-	Confirmed  bool
-	Token      string
-	CreatedAt  time.Time `db:"created_at" json:"created_at"`
+	Name  string `json:"names"`
+	Email string `json:"email"`
+	//Nickname  string `db:"user" json:"nickname"`	//To implement this later
+	Password  string
+	Age       int    `json:"age"`
+	Faculty   string `db:"dept" json:"department"`
+	Super     bool   `json:"super"`
+	Moderator bool   `db:"mod" json:"mod"`
+	Confirmed bool
+	Token     string
+	CreatedAt time.Time `db:"created_at" json:"created_at"`
 }
 
 func init() {
@@ -44,10 +45,6 @@ func init() {
 	}
 }
 func executetemplate(file string, w http.ResponseWriter) {
-
-	//temp, err := templates.Parse(file)
-	//fmt.Println(err)
-	//http.FileServer(http.Dir("./template/images"))
 	templates = templates.Lookup(file + ".html")
 	templates.Execute(w, nil)
 }
@@ -71,27 +68,26 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 		return
 	}
 	//User login success
-	Db.QueryRow("select nickname, age, dept, super, mod, token, created_at from users where email = $1", user.Email).Scan(&user.Nickname, &user.Age, &user.Department, &user.Super, &user.Moderator, &user.Token, &user.CreatedAt)
+	//What to do after successfull login
+	//Db.QueryRow("select nickname, age, dept, super, mod, token, created_at from users where email = $1", user.Email).Scan(&user.Nickname, &user.Age, &user.Faculty, &user.Super, &user.Moderator, &user.Token, &user.CreatedAt)
 	//Find a way to use this
 	fmt.Fprintln(w, "success logging in")
 }
 
 //Login ...
 func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	//w.Header().Add("Content-Type", "text/html")
-	//w.Header().Add("Content-Type", "text/css")
 	executetemplate("login", w)
-
 }
 
 //SignUpPost ...
 func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseMultipartForm(1024)
-	user.Nickname = r.FormValue("user")
-	user.Email = r.FormValue("Email")
-	user.Password = r.FormValue("pass")
-	user.Age, _ = strconv.Atoi(r.FormValue("age"))
-	user.Department = r.FormValue("dept")
+	r.ParseForm()
+	user.Name = r.FormValue("name")
+	//user.Nickname = r.FormValue("user")	//Ignored Nickname till fix
+	user.Email = r.FormValue("email")
+	user.Password = r.FormValue("Password")
+	user.Age, _ = strconv.Atoi(r.FormValue("Age"))
+	user.Faculty = r.FormValue("Faculty")
 	hashpass, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		fmt.Println(err)
@@ -99,12 +95,12 @@ func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httproute
 	}
 	//try to send email to user to confirm and tell user to login and give restrictions to users not confirmed
 	statement := `
-		insert into users (email, password, department, super, mod, age, confirmed, nickname)
+		insert into users (email, password, faculty, super, mod, age, confirmed, names)
 		values ($1, $2, $3, $4, $5, $6, $7, $8)
 		`
-	if _, err = Db.Exec(statement, user.Email, hashpass, user.Department, user.Super, user.Moderator, user.Age, user.Confirmed, user.Nickname); err != nil {
+	if _, err = Db.Exec(statement, user.Email, hashpass, user.Faculty, user.Super, user.Moderator, user.Age, user.Confirmed, user.Name); err != nil {
 		//if it cant register
-		fmt.Fprintln(w, "This email has been registered already please use another")
+		fmt.Fprintln(w, "This email has been registered already please use another", err)
 		return
 	}
 	//after success take it to successful page
@@ -117,14 +113,16 @@ func (user *User) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 }
 
 //ResetPassword ...
-func (user *User) ResetPassword(w http.ResponseWriter, r *http.Request) error {
-	//get token and send to user
-	user.Email = r.FormValue("email")
-	Db.QueryRow("select token from users where nickname = $1", user.Nickname)
+//Work in progress
+// func (user *User) ResetPassword(w http.ResponseWriter, r *http.Request) error {
+// 	//get token and send to user
+// 	user.Email = r.FormValue("email")
+// 	Db.QueryRow("select token from users where nickname = $1", user.Nickname)
 
-	return nil
-}
+// 	return nil
+// }
 
+//To Update Users info
 //Update ...
 // func (user *User) Update() error {
 // 	//stop
@@ -135,7 +133,7 @@ func (user *User) ResetPassword(w http.ResponseWriter, r *http.Request) error {
 //ConfirmToken ...
 func (user *User) ConfirmToken(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	token := ps.ByName("token")
-	err := Db.QueryRow("select email, nickname from users where token = $1", token).Scan(&user.Email, &user.Nickname)
+	err := Db.QueryRow("select email, names from users where token = $1", token).Scan(&user.Email, &user.Name)
 	if err != nil {
 		fmt.Fprintln(w, "this is a wrong token", err)
 		return
