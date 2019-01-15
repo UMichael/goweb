@@ -45,7 +45,7 @@ func init() {
 	}
 }
 
-func executetemplate(file string, w http.ResponseWriter, r *http.Request, temp ...string) {
+func executetemplate(file string, w http.ResponseWriter, r *http.Request, temp string) {
 	templates = templates.Lookup(file + ".html")
 	_, err := r.Cookie("token")
 	if err != nil {
@@ -80,6 +80,7 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 	//Db.QueryRow("select nickname, age, dept, super, mod, token, created_at from users where email = $1", user.Email).Scan(&user.Nickname, &user.Age, &user.Faculty, &user.Super, &user.Moderator, &user.Token, &user.CreatedAt)
 	//Find a way to use this
 	Create(user, w, r)
+	http.Redirect(w, r, "/", 302)
 }
 
 //Login ...
@@ -166,11 +167,15 @@ func (user *User) ConfirmToken(w http.ResponseWriter, r *http.Request, ps httpro
 
 //Index ...
 func (user *User) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	executetemplate("success", w, r)
+	executetemplate("success", w, r, "")
 }
 
 //Success ....
 func (user *User) Success(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+
+	cookie, _ := r.Cookie("token")
+	token := cookie.Value
+	err = Db.QueryRow("select email, names from users where token = $1", token).Scan(&user.Email, &user.Name)
 	executetemplate("success", w, r, user.Name)
 	fmt.Println("Username is ", user.Name)
 }

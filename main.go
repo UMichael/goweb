@@ -24,6 +24,5 @@ func main() {
 	router.GET("/", person.Index)
 	router.GET("/logout/", person.Logout)
 	router.ServeFiles("/assets/*filepath", http.Dir("./template/assets"))
-	//router.ServeFiles("/js/*filepath", http.Dir("./template/js"))
 	log.Fatal(http.ListenAndServe(":8081", router))
 }
