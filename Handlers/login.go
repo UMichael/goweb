@@ -20,9 +20,9 @@ var templates = template.Must(template.ParseGlob("template/*.html"))
 
 //User ...
 type User struct {
-	Name  string `json:"names"`
-	Email string `json:"email"`
-	//Nickname  string `db:"user" json:"nickname"`	//To implement this later
+	Name      string `json:"names"`
+	Email     string `json:"email"`
+	Nickname  string `db:"user" json:"nickname"` //To implement this later
 	Password  string
 	Age       int    `json:"age"`
 	Faculty   string `db:"dept" json:"department"`
@@ -44,19 +44,26 @@ func init() {
 		panic(err)
 	}
 }
-func executetemplate(file string, w http.ResponseWriter) {
+
+func executetemplate(file string, w http.ResponseWriter, r *http.Request, temp ...string) {
 	templates = templates.Lookup(file + ".html")
-	templates.Execute(w, nil)
+	_, err := r.Cookie("token")
+	if err != nil {
+		http.Redirect(w, r, "/login", 302)
+	} else {
+		templates.Execute(w, temp)
+	}
+
 }
 
 //LoginPost ...
 func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseMultipartForm(1024)
+	r.ParseForm()
 	user.Email = r.FormValue("email")
-	user.Password = r.FormValue("pass")
+	user.Password = r.FormValue("password")
 	fmt.Println(user)
 	var hashpass string
-	if err = Db.QueryRow("select password from users where email = $1", user.Email).Scan(&hashpass); err != nil {
+	if err = Db.QueryRow("select password,names from users where email = $1", user.Email).Scan(&hashpass, &user.Name); err != nil {
 		//Tell the user there was no email like that found
 		//do something
 		fmt.Fprintln(w, "error this has not been registered") //fix something explicit
@@ -67,23 +74,30 @@ func (user *User) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter
 		fmt.Fprintln(w, "error this has a wrong pass") //fix something explicit
 		return
 	}
+
 	//User login success
 	//What to do after successfull login
 	//Db.QueryRow("select nickname, age, dept, super, mod, token, created_at from users where email = $1", user.Email).Scan(&user.Nickname, &user.Age, &user.Faculty, &user.Super, &user.Moderator, &user.Token, &user.CreatedAt)
 	//Find a way to use this
-	fmt.Fprintln(w, "success logging in")
+	Create(user, w, r)
 }
 
 //Login ...
 func (user *User) Login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	executetemplate("login", w)
+	_, err := r.Cookie("token")
+	templates = templates.Lookup("login.html")
+	if err == nil {
+		http.Redirect(w, r, "/", 302)
+	} else {
+		templates.Execute(w, nil)
+	}
 }
 
 //SignUpPost ...
 func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	user.Name = r.FormValue("name")
-	//user.Nickname = r.FormValue("user")	//Ignored Nickname till fix
+	user.Nickname = r.FormValue("Nickname") //Ignored Nickname till fix
 	user.Email = r.FormValue("email")
 	user.Password = r.FormValue("Password")
 	user.Age, _ = strconv.Atoi(r.FormValue("Age"))
@@ -95,21 +109,27 @@ func (user *User) SignUpPost(w http.ResponseWriter, r *http.Request, _ httproute
 	}
 	//try to send email to user to confirm and tell user to login and give restrictions to users not confirmed
 	statement := `
-		insert into users (email, password, faculty, super, mod, age, confirmed, names)
-		values ($1, $2, $3, $4, $5, $6, $7, $8)
+		insert into users (nickname, email, password, faculty, super, mod, age, confirmed, names)
+		values ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 		`
-	if _, err = Db.Exec(statement, user.Email, hashpass, user.Faculty, user.Super, user.Moderator, user.Age, user.Confirmed, user.Name); err != nil {
+	if _, err = Db.Exec(statement, user.Nickname, user.Email, hashpass, user.Faculty, user.Super, user.Moderator, user.Age, user.Confirmed, user.Name); err != nil {
 		//if it cant register
 		fmt.Fprintln(w, "This email has been registered already please use another", err)
 		return
 	}
 	//after success take it to successful page
-	fmt.Fprintln(w, "success registering")
+	Create(user, w, r)
 }
 
 //SignUp ...
 func (user *User) SignUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	executetemplate("signup", w)
+	templates = templates.Lookup("signup.html")
+	_, err := r.Cookie("token")
+	if err == nil {
+		http.Redirect(w, r, "/", 302)
+	} else {
+		templates.Execute(w, nil)
+	}
 }
 
 //ResetPassword ...
@@ -146,5 +166,16 @@ func (user *User) ConfirmToken(w http.ResponseWriter, r *http.Request, ps httpro
 
 //Index ...
 func (user *User) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	executetemplate("index", w)
+	executetemplate("success", w, r)
+}
+
+//Success ....
+func (user *User) Success(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	executetemplate("success", w, r, user.Name)
+	fmt.Println("Username is ", user.Name)
+}
+func (user *User) Logout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	cook := http.Cookie{Name: "token", Value: "", HttpOnly: true, MaxAge: -1, Path: "/"}
+	http.SetCookie(w, &cook)
+	http.Redirect(w, r, "/login", 302)
 }
