@@ -14,7 +14,7 @@ Run go build to build files and run the file make sure postgre is up
 
 Open browser and listen on port 8080
 
-> Login Page
+> Login Page <br>
 > <img src="https://github.com/UMichael/goweb/blob/master/media/login.png"/>
 
 > Signup Page
