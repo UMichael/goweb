@@ -172,10 +172,11 @@ func (user *User) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Par
 
 //Success ....
 func (user *User) Success(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-
-	cookie, _ := r.Cookie("token")
-	token := cookie.Value
-	err = Db.QueryRow("select email, names from users where token = $1", token).Scan(&user.Email, &user.Name)
+	if user.Name == "" {
+		cookie, _ := r.Cookie("token")
+		token := cookie.Value
+		err = Db.QueryRow("select email, names from users where token = $1", token).Scan(&user.Email, &user.Name)
+	}
 	executetemplate("success", w, r, user.Name)
 	fmt.Println("Username is ", user.Name)
 }
