@@ -15,4 +15,5 @@ Run go build to build files and run the file make sure postgre is up
 Open browser and listen on port 8080
 
 For now it has the ability to register and users and login, to implement tokens, chatroom and also a customized forum using websockets
-<img src="https://github.com/UMichael/goweb/raw/master/template/b3a5951e-dce6-4523-abe5-aeb278b27b92.png"/>
+> <img src="https://github.com/UMichael/goweb/blob/master/media/login.png"/>
+> <img src="https://github.com/UMichael/goweb/blob/master/media/signup.png"/>
