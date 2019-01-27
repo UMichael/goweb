@@ -1,0 +1,61 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "blOHP3HPYU+IeV6yWCalQuuM+zE=",
+			"path": "github.com/dgrijalva/jwt-go",
+			"revision": "3af4c746e1c248ee8491a3e0c6f7a9cd831e95f8",
+			"revisionTime": "2018-09-21T17:23:15Z"
+		},
+		{
+			"checksumSHA1": "EFilcRi6b0Bf3nckKo3UbeqoW50=",
+			"path": "github.com/gorilla/websocket",
+			"revision": "95ba29eb981bbb27d92e1f70bf8a1949452d926b",
+			"revisionTime": "2018-12-06T07:02:39Z"
+		},
+		{
+			"checksumSHA1": "SVzanxaLYK43jeNWQqNs5P+uhow=",
+			"path": "github.com/jmoiron/sqlx",
+			"revision": "82935fac6c1a317907c8f43ed3f7f85ea844a78b",
+			"revisionTime": "2018-10-24T16:34:19Z"
+		},
+		{
+			"checksumSHA1": "i2O6Ji8ZL6q+EL+4cu/ftBytqZg=",
+			"path": "github.com/jmoiron/sqlx/reflectx",
+			"revision": "82935fac6c1a317907c8f43ed3f7f85ea844a78b",
+			"revisionTime": "2018-10-24T16:34:19Z"
+		},
+		{
+			"checksumSHA1": "z/DzcKNumSHzzxg9Widbi9KgwNw=",
+			"path": "github.com/julienschmidt/httprouter",
+			"revision": "26a05976f9bf5c3aa992cc20e8588c359418ee58",
+			"revisionTime": "2018-10-21T22:38:31Z"
+		},
+		{
+			"checksumSHA1": "xxLSo5tKtXc7jGrR70yoEfza8Cw=",
+			"path": "github.com/lib/pq",
+			"revision": "9eb73efc1fcc404148b56765b0d3f61d9a5ef8ee",
+			"revisionTime": "2018-10-16T16:26:27Z"
+		},
+		{
+			"checksumSHA1": "AU3fA8Sm33Vj9PBoRPSeYfxLRuE=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "9eb73efc1fcc404148b56765b0d3f61d9a5ef8ee",
+			"revisionTime": "2018-10-16T16:26:27Z"
+		},
+		{
+			"checksumSHA1": "oCH3J96RWvO8W4xjix47PModpio=",
+			"path": "golang.org/x/crypto/bcrypt",
+			"revision": "057139ce5d2bdbe6fe73c53679e24e9cf007f637",
+			"revisionTime": "2019-01-08T20:51:12Z"
+		},
+		{
+			"checksumSHA1": "oVPHWesOmZ02vLq2fglGvf+AMgk=",
+			"path": "golang.org/x/crypto/blowfish",
+			"revision": "057139ce5d2bdbe6fe73c53679e24e9cf007f637",
+			"revisionTime": "2019-01-08T20:51:12Z"
+		}
+	],
+	"rootPath": "DSC project"
+}
