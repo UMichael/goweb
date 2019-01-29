@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	handler "github.com/UMichael/goweb/handlers"
 	"github.com/julienschmidt/httprouter"
@@ -10,6 +11,13 @@ import (
 
 func main() {
 	var person handler.User
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = os.Getenv("HTTP_PLATFORM_PORT")
+	}
+	if port == "" {
+		port = "3000"
+	}
 	//fileServer := http.FileServer(http.Dir("./template/images"))
 	router := httprouter.New()
 	router.HandleMethodNotAllowed = true
@@ -24,5 +32,5 @@ func main() {
 	router.GET("/", person.Index)
 	router.GET("/logout/", person.Logout)
 	router.ServeFiles("/assets/*filepath", http.Dir("./template/assets"))
-	log.Fatal(http.ListenAndServe(":8081", router))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
