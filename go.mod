@@ -7,4 +7,7 @@ require (
 	github.com/julienschmidt/httprouter v1.2.0
 	github.com/lib/pq v1.0.0
 	golang.org/x/crypto v0.0.0-20190129200851-54b0dbbbf449
+	github.com/UMichael/goweb/handlers v0.0.0
 )
+
+replace github.com/UMichael/goweb/handlers v0.0.0 => ./handlers
