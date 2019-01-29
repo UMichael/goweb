@@ -9,7 +9,7 @@ require (
 	github.com/lib/pq v1.0.0
 	github.com/mattn/go-sqlite3 v1.10.0 // indirect
 	golang.org/x/crypto v0.0.0-20190129210102-ccddf3741a0c
-//github.com/UMichael/goweb/handlers v0.0.0
+	github.com/UMichael/goweb/handlers v0.0.0
 )
 
 replace github.com/UMichael/goweb/handlers v0.0.0 => ./handlers
