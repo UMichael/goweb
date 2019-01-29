@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/UMichael/goweb/handlers"
+	"./handlers"
 	"github.com/julienschmidt/httprouter"
 )
 
