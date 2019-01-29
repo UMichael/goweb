@@ -4,12 +4,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/UMichael/goweb/handlers"
+	handler "github.com/UMichael/goweb/handlers"
 	"github.com/julienschmidt/httprouter"
 )
 
 func main() {
-	var person handlers.User
+	var person handler.User
 	//fileServer := http.FileServer(http.Dir("./template/images"))
 	router := httprouter.New()
 	router.HandleMethodNotAllowed = true
