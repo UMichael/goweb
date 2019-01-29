@@ -35,7 +35,7 @@ type User struct {
 
 func init() {
 
-	Db, err = sqlx.Open("postgres", "user=DSC password=DSC sslmode=disable dbname=database port=5434")
+	Db, err = sqlx.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		panic(err)
 	}
