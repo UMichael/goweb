@@ -1,6 +1,6 @@
 # goweb
 Test site is<br>
-<a href="dsctest.herokuapp.com" rel="nofollow">site</a>
+<a href="https://dsctest.herokuapp.com" rel="nofollow">site</a>
 
 
 My backend web application using golang using #postgresql
