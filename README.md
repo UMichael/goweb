@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/umichael/goweb)](https://goreportcard.com/report/github.com/umichael/goweb)
+
 # goweb
 Test site is<br>
 <a href="https://dsctest.herokuapp.com" rel="nofollow">site</a>
